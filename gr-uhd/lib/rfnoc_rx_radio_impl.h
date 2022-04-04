@@ -22,6 +22,8 @@ public:
     ~rfnoc_rx_radio_impl();
 
     /*** API *****************************************************************/
+    bool start() override;
+    bool stop() override;
     double set_rate(const double rate);
     void set_antenna(const std::string& antenna, const size_t chan);
     double set_frequency(const double frequency, const size_t chan);
@@ -40,8 +42,6 @@ public:
     void set_dc_offset(const std::complex<double>& offset, const size_t chan);
     void set_iq_balance(const bool enable, const size_t chan);
     void set_iq_balance(const std::complex<double>& correction, const size_t chan);
-    bool start() override;
-    bool stop() override;
 
 private:
     ::uhd::rfnoc::radio_control::sptr d_radio_ref;

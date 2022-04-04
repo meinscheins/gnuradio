@@ -12,6 +12,8 @@
 #include <gnuradio/uhd/api.h>
 #include <gnuradio/uhd/rfnoc_block.h>
 #include <gnuradio/uhd/rfnoc_graph.h>
+//#include <gnuradio/sync_block.h>
+#include <uhd/stream.hpp>
 
 namespace gr {
 namespace uhd {
@@ -160,6 +162,9 @@ public:
     // \param chan The channel for which this setting is for
     virtual void set_iq_balance(const std::complex<double>& correction,
                                 const size_t chan) = 0;
+
+    //virtual bool start();
+    //virtual bool stop();
 };
 
 } // namespace uhd

@@ -24,7 +24,7 @@ rfnoc_rx_radio::sptr rfnoc_rx_radio::make(rfnoc_graph::sptr graph,
                                           const int instance)
 {
     return gnuradio::make_block_sptr<rfnoc_rx_radio_impl>(rfnoc_block::make_block_ref(
-        graph, block_args, "Radio", device_select, instance, MAX_RADIO_REFS), graph));
+        graph, block_args, "Radio", device_select, instance, MAX_RADIO_REFS), graph);
 }
 
 
@@ -43,23 +43,23 @@ rfnoc_rx_radio_impl::~rfnoc_rx_radio_impl() {}
 
  bool rfnoc_rx_radio_impl::start()
  {
-     GR_LOG_DEBUG(d_logger, "Committing graph...");
-     d_graph->commit();
+     GR_LOG_DEBUG(d_logger, "test...");
 
      // Start the streamers
      ::uhd::stream_cmd_t stream_cmd(::uhd::stream_cmd_t::STREAM_MODE_START_CONTINUOUS);
      stream_cmd.stream_now = true;
 
-     GR_LOG_DEBUG(d_logger, "Sending start stream command...");
+     GR_LOG_DEBUG(d_logger, "RX_Radio: Sending start stream command...");
      d_radio_ref->issue_stream_cmd(stream_cmd, 0);
      return true;
  }
 
  bool rfnoc_rx_radio_impl::stop()
  {
-     // If we issue a stream command on start, we also issue it on stop
      ::uhd::stream_cmd_t stream_cmd(::uhd::stream_cmd_t::STREAM_MODE_STOP_CONTINUOUS);
      d_radio_ref->issue_stream_cmd(stream_cmd, 0);
+     GR_LOG_DEBUG(d_logger, "RX_Radio: Sending stop stream command...");
+     //flush();
      return true;
  }
 
