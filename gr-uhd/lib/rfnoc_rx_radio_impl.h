@@ -11,6 +11,7 @@
 
 #include <gnuradio/uhd/rfnoc_rx_radio.h>
 #include <uhd/rfnoc/radio_control.hpp>
+#include <pmt/pmt.h>
 
 namespace gr {
 namespace uhd {
@@ -22,7 +23,8 @@ public:
     ~rfnoc_rx_radio_impl();
 
     /*** API *****************************************************************/
-    bool start() override;
+    void cmd(pmt::pmt_t);
+    //bool start() override;
     bool stop() override;
     double set_rate(const double rate);
     void set_antenna(const std::string& antenna, const size_t chan);

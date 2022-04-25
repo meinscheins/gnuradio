@@ -33,6 +33,9 @@ rfnoc_rx_radio_impl::rfnoc_rx_radio_impl(::uhd::rfnoc::noc_block_base::sptr bloc
     d_radio_ref(get_block_ref<::uhd::rfnoc::radio_control>()),
     d_graph(graph)
 {
+    message_port_register_in(pmt::intern("cmd"));
+    set_msg_handler(pmt::intern("cmd"), [this](pmt::pmt_t msg) { this->cmd(msg); });
+
 }
 
 rfnoc_rx_radio_impl::~rfnoc_rx_radio_impl() {}
@@ -41,8 +44,9 @@ rfnoc_rx_radio_impl::~rfnoc_rx_radio_impl() {}
  * rfnoc_rx_radio API
  *****************************************************************************/
 
- bool rfnoc_rx_radio_impl::start()
+void rfnoc_rx_radio_impl::cmd(pmt::pmt_t msg)
  {
+     std::cout << "rfnoc rx radio start" << std::endl;
      GR_LOG_DEBUG(d_logger, "test...");
 
      // Start the streamers
@@ -51,7 +55,8 @@ rfnoc_rx_radio_impl::~rfnoc_rx_radio_impl() {}
 
      GR_LOG_DEBUG(d_logger, "RX_Radio: Sending start stream command...");
      d_radio_ref->issue_stream_cmd(stream_cmd, 0);
-     return true;
+     d_radio_ref->enable_rx_timestamps(false, 0);
+     d_graph->commit();
  }
 
  bool rfnoc_rx_radio_impl::stop()
