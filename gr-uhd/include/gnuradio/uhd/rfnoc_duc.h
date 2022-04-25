@@ -51,6 +51,11 @@ public:
      * \param chan Channel Index
      */
     virtual double set_input_rate(const double rate, const size_t chan) = 0;
+
+    /*! Check if propagation is enabled
+     *
+     */
+    virtual bool propagation() = 0;
 };
 
 } // namespace uhd

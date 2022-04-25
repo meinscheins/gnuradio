@@ -31,3 +31,5 @@ static const char* __doc_gr_uhd_rfnoc_duc_set_freq = R"doc()doc";
 
 
 static const char* __doc_gr_uhd_rfnoc_duc_set_input_rate = R"doc()doc";
+
+static const char* __doc_gr_uhd_rfnoc_duc_propagation = R"doc()doc";

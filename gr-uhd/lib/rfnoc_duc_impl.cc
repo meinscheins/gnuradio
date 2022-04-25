@@ -27,7 +27,7 @@ rfnoc_duc::sptr rfnoc_duc::make(rfnoc_graph::sptr graph,
 
 
 rfnoc_duc_impl::rfnoc_duc_impl(::uhd::rfnoc::noc_block_base::sptr block_ref)
-    : rfnoc_block(block_ref), d_duc_ref(get_block_ref<::uhd::rfnoc::duc_block_control>())
+    : rfnoc_block(block_ref), d_duc_ref(get_block_ref<::uhd::rfnoc::duc_block_control>()), d_propagation(true)
 {
 }
 
@@ -41,6 +41,11 @@ double rfnoc_duc_impl::set_freq(const double freq,
                                 const ::uhd::time_spec_t time)
 {
     return d_duc_ref->set_freq(freq, chan, time);
+}
+
+bool rfnoc_duc_impl::propagation()
+{
+    return d_propagation;
 }
 
 double rfnoc_duc_impl::set_input_rate(const double rate, const size_t chan)
